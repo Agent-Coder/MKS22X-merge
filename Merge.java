@@ -2,82 +2,75 @@ import java.util.Arrays;
 public class Merge{
   /*sort the array from least to greatest value. This is a wrapper function*/
   public static void mergesort(int[]data){
-    mergesortH(data,0,data.length-1);
+    int[] copy=new int[data.length];
+    for (int a=0;a<data.length ;a++ ) {
+      copy[a]=data[a];
+    }
+    mergesortH(data,copy,0,data.length-1);
   }
   //inclusive of high and low
-  public static void mergesortH(int[] data,int low, int high){
-    if(data.length>1){
-      int[] l=new int[((high-low)/2)+1];
-      int[] r=new int[high-l.length+1];
-      if((((high-low)/2)+1)+(high-(l.length-1))!=data.length){
-        System.out.println(l.length);
-        System.out.println(r.length);
-        System.out.println(data.length);
-        System.out.println("NOOOOOOOOOOOOOOOOO");
-      }
-      for (int i=0;i<l.length;i++) {
-        l[i]=data[i];
-      }
-      for (int i=0;i<r.length;i++) {
-        r[i]=data[i+(l.length-1)];
-      }
-      mergesortH(l,low,l.length-1);
-      mergesortH(r,l.length,high);
-      int a=0;
-      int b=0;
-      for (int j=0;j<data.length;j++) {
-        if(a>l.length-1){
-          data[j]=r[b];
-          b++;
-        }
-        else if(b>l.length-1){
-          data[j]=r[a];
-          a++;
-        }
-        else{
-          if(l[a]>=r[b]){
-            data[j]=l[a];
-            a++;
-          }
-          else{
-            data[j]=r[b];
-            b++;
-          }
-        }
-      }
+  public static void mergesortH(int[] data,int[] copy,int low, int high){
+    if(low<high){
+      mergesortH(copy,data,low,(high-low)/2+low);
+      mergesortH(copy,data,((high-low)/2)+low+1,high);
+      sorting(copy,data,low,((high-low)/2)+low+1,high);
     }
+    //sorting(copy,data,low,((high-low)/2)+1);
   }
-  public static void sorting(int[] data,int start1,int end1,int start2,int end2){
-    int[] copy=data;
-    int longer=end1;
-    int shorter=end2;
-    if(end1-start1<end2-start2){
-      longer=end2;
-      shorter=end1;
-    }
+  public static void sorting(int[] data,int[] copy,int start1,int start2,int end){
     int i=start1;
-    int j=start1;
+    int j=start2;
     int k=start1;
-    while(i<=shorter){
-      if(copy[i]<=copy[j]){
-        data[k]=copy[i];
+    while(i<start2&&j<end+1){
+      if(data[i]<=data[j]){
+        copy[k]=data[i];
         i++;
       }
       else{
-        data[k]=copy[j];
+        copy[k]=data[j];
         j++;
       }
       k++;
     }
-    while(j<=shorter){
-      data[k]=data[j];
-      k++;
-      j++;
+    if(j!= end+1){
+      while(j<end+1){
+        copy[k]=data[j];
+        k++;
+        j++;
+      }
+    }
+    if(i!=start2){
+      while(i<start2){
+        copy[k]=data[i];
+        k++;
+        i++;
+      }
     }
   }
+  public static void insertionSort(int[] data,int low, int high){
+  int store;
+  //stores number that is being placed
+  int i;
+  //keeps track of current index being examined
+  for (int x=low+1;x<high+1;x++){
+      store=data[x];
+      i=x;
+      //store the value at the index we are examining
+      while (i>=1&&store<data[i-1]){
+        //loop backwards to find number where it is greater than stored
+        data[i]=data[i-1];
+        //start shifting if the stored number is less than current
+        i--;
+        //increment i, examines from right to left
+      }
+      data[i]=store;
+      //set number at the place
+   }
+ }
   public static void main(String[] args) {
-    int[] ary={2,4,6,2,2,5,23,4,65,3,3,7,237,789};
-    mergesort(ary);
+    int[] ary={1,1,1,2,3,7,3,5,7,3,10,20,30};
+    int[] x=new int[ary.length];
+    insertionSortsort(ary);
     System.out.println(Arrays.toString(ary));
   }
 
