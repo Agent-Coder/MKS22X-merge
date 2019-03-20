@@ -71,12 +71,12 @@ public class Merge{
       //set number at the place
    }
  }
-  public static void main(String[] args) {
+  /*public static void main(String[] args) {
     int[] ary={1,1,1,2,3,7,3,5,7,3,10,20,30};
     int[] x=new int[ary.length];
     insertionSort(ary,3,9);
     System.out.println(Arrays.toString(ary));
-  }
+  }*/
 
 
 }
