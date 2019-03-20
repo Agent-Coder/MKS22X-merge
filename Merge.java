@@ -10,6 +10,10 @@ public class Merge{
   }
   //inclusive of high and low
   public static void mergesortH(int[] data,int[] copy,int low, int high){
+    if(high-low<100){
+    insertionSort(data,low,high);
+    return;
+  }
     if(low<high){
       mergesortH(copy,data,low,(high-low)/2+low);
       mergesortH(copy,data,((high-low)/2)+low+1,high);
@@ -56,7 +60,7 @@ public class Merge{
       store=data[x];
       i=x;
       //store the value at the index we are examining
-      while (i>=1&&store<data[i-1]){
+      while (i>=low+1&&store<data[i-1]){
         //loop backwards to find number where it is greater than stored
         data[i]=data[i-1];
         //start shifting if the stored number is less than current
@@ -70,7 +74,7 @@ public class Merge{
   public static void main(String[] args) {
     int[] ary={1,1,1,2,3,7,3,5,7,3,10,20,30};
     int[] x=new int[ary.length];
-    insertionSortsort(ary);
+    insertionSort(ary,3,9);
     System.out.println(Arrays.toString(ary));
   }
 
